@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './containers/app/App';
 import { store } from './redux/store';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
