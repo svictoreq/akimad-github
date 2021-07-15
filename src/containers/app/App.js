@@ -22,6 +22,7 @@ import { useTheme } from "@material-ui/core/styles";
 import useStyles from "./appStyles";
 import Home from "../home/Home";
 import Search from "../search/Search";
+import User from "../user/User";
 import TopSearchBar from "../../components/topSearchBar/TopSearchBar";
 
 function App() {
@@ -100,6 +101,9 @@ function App() {
         </Route>
         <Route path="/search">
           <Search />
+        </Route>
+        <Route path="/user/:username">
+          <User />
         </Route>
       </Switch>
     </Container>

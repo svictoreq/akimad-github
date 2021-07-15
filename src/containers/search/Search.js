@@ -43,6 +43,12 @@ function Search() {
     history.push("/search?" + encodeURI(searchParams.toString()))
   }
 
+  function handleCardClick(login) {
+    return () => {
+      history.push(`/user/${login}`);
+    }
+  }
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const queryParams = {};
@@ -79,7 +85,10 @@ function Search() {
             <Grid container spacing={3}>
               {resultsSelector.items.map((item) => (
                 <Grid key={item.node_id} item container xs={12} md={6} lg={3}>
-                  <ButtonBase classes={{ root: classes.buttonBaseRoot }}>
+                  <ButtonBase
+                    classes={{ root: classes.buttonBaseRoot }}
+                    onClick={handleCardClick(item.login)}
+                  >
                     <Paper classes={{ root: classes.paperRoot }}>
                       <Avatar src={item.avatar_url} classes={{ root: classes.avatarRoot }} />
                       <figcaption>
