@@ -5,19 +5,18 @@ import { useHistory, useLocation } from "react-router-dom";
 
 // Material-ui imports
 import Avatar from "@material-ui/core/Avatar";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Pagination from "@material-ui/lab/Pagination";
 import PaginationItem from "@material-ui/lab/PaginationItem";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 
 // Local imports
 import useStyles from "./searchStyles";
+import CardButton from "../../components/cardButton/CardButton";
 import { clearResults, fetchUsers } from "../../redux/search/searchSlice"
 
 function Search() {
@@ -84,20 +83,15 @@ function Search() {
           <>
             <Grid container spacing={3}>
               {resultsSelector.items.map((item) => (
-                <Grid key={item.node_id} item container xs={12} md={6} lg={3}>
-                  <ButtonBase
-                    classes={{ root: classes.buttonBaseRoot }}
-                    onClick={handleCardClick(item.login)}
-                  >
-                    <Paper classes={{ root: classes.paperRoot }}>
-                      <Avatar src={item.avatar_url} classes={{ root: classes.avatarRoot }} />
-                      <figcaption>
-                        <Typography variant="h6">
-                          {item.login}
-                        </Typography>
-                      </figcaption>
-                    </Paper>
-                  </ButtonBase>
+                <Grid key={item.node_id} item xs={12} md={6} lg={3}>
+                  <CardButton onClick={handleCardClick(item.login)}>
+                    <Avatar src={item.avatar_url} classes={{ root: classes.avatarRoot }} />
+                    <figcaption>
+                      <Typography variant="h6">
+                        {item.login}
+                      </Typography>
+                    </figcaption>
+                  </CardButton>
                 </Grid>
               ))}
             </Grid>

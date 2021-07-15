@@ -5,7 +5,7 @@
 import { request } from "@octokit/request";
 
 const initialState = {
-  user: {},
+  data: {},
   status: "idle",
 };
 
@@ -15,8 +15,19 @@ export const getUser = createAsyncThunk(
     const { data } = await request("GET /users/{username}", {
       username
     });
-    console.info("userResponse", data);
-    return data;
+    const repos = await request("GET /users/{username}/repos", {
+      username,
+      per_page: 9,
+      sort: "pushed",
+    });
+    const organizations = await request("GET /users/{username}/orgs", {
+      username
+    });
+    return {
+      ...data,
+      repositories: repos.data,
+      organizations: organizations.data,
+    };
   }
 );
 
@@ -25,7 +36,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     clearUser(state) {
-      state.user = {};
+      state.data = {};
       state.status = "idle";
     },
   },
@@ -36,7 +47,7 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.status = "success";
-        state.user = action.payload;
+        state.data = action.payload;
       })
       .addCase(getUser.rejected, (state) => {
         state.status = "error";
