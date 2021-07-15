@@ -5,8 +5,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { request } from "@octokit/request";
 
 const initialState = {
-  query: "",
-  results: [],
+  results: {
+    incomplete_results: false,
+    items: [],
+    total_count: 0,
+    params: {
+      q: "",
+      per_page: 0,
+      total_count: 0,
+    },
+  },
   status: "idle",
 };
 
@@ -14,7 +22,7 @@ export const fetchUsers = createAsyncThunk(
   "search/fetchUsers",
   async (params) => {
     const { data } = await request("GET /search/users", params);
-    return data;
+    return {...data, params };
   }
 );
 
@@ -22,12 +30,13 @@ export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    setQuery(state, action) {
-      state.query = action.payload;
-    },
-    clearItems(state) {
-      state.results = [];
-      state.query = "";
+    clearResults(state) {
+      state.results = {
+        incomplete_results: false,
+        items: [],
+        total_count: 0,
+      };
+      state.status = "idle";
     },
   },
   extraReducers(builder) {
@@ -36,11 +45,14 @@ export const searchSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = "success";
         state.results = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state) => {
+        state.status="error";
       });
   }
 });
 
-export const { clearItems, setQuery } = searchSlice.actions;
+export const { clearResults, setQuery } = searchSlice.actions;
 export default searchSlice.reducer;
