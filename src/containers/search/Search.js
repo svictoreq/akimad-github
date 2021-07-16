@@ -17,7 +17,7 @@ import { useTheme } from "@material-ui/core/styles";
 // Local imports
 import useStyles from "./searchStyles";
 import CardButton from "../../components/cardButton/CardButton";
-import { clearResults, fetchUsers } from "../../redux/search/searchSlice"
+import { clearResults, fetchUsers } from "../../redux/searchSlice"
 
 function Search() {
   const dispatch = useDispatch()

@@ -11,13 +11,12 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 // Material-ui icon imports
-import DarkThemeIcon from "@material-ui/icons/Brightness2";
-import LightThemeIcon from "@material-ui/icons/Brightness7";
 import SearchIcon from "@material-ui/icons/Search";
 
 // Local imports
 import useStyles from "./homeStyles";
 import { toggleTheme } from "../../redux/themeSlice";
+import ThemeButton from "../../components/themeButton/ThemeButton";
 
 function Home({ handleSearch }) {
   const [searchValue, setSearchValue] = useState("");
@@ -44,19 +43,11 @@ function Home({ handleSearch }) {
       maxWidth={false}
       classes={{ root: classes.containerRoot }}
     >
-      <IconButton
+      <ThemeButton
         onClick={handleThemeToggle}
-        color="inherit"
+        theme={themeSelector}
         classes={{ root: classes.themeButton }}
-      >
-        {themeSelector === "dark"
-          ? (
-            <LightThemeIcon />
-          ) : (
-            <DarkThemeIcon />
-          )
-        }
-      </IconButton>
+      />
       <Typography variant="h3">
         Akimad GitHub Search
       </Typography>
