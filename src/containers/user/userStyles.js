@@ -48,6 +48,12 @@ export default makeStyles((theme) => ({
   organizationAvatarRoot: {
     marginRight: theme.spacing(1.25),
   },
+  organizationName: {
+    fontSize: "1.1rem",
+  },
+  stargazersCount: {
+    fontWeight: 700,
+  },
   repositoryContent: {
     flex: 1,
     height: "100%",

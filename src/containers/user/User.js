@@ -151,8 +151,14 @@ function User() {
                                   </Typography>
                                   <div className={classes.infoField}>
                                     <StarIcon />
-                                    <Typography variant="overline">
-                                      &nbsp;{abbreviateNumber(repo.stargazers_count)}
+                                    <Typography
+                                      variant="overline"
+                                      classes={{
+                                        overline: classes.stargazersCount
+                                      }}
+                                    >
+                                      &nbsp;
+                                      {abbreviateNumber(repo.stargazers_count)}
                                     </Typography>
                                   </div>
                                 </div>
@@ -193,7 +199,10 @@ function User() {
                                       root: classes.organizationAvatarRoot
                                     }}
                                   />
-                                  <Typography variant="button">
+                                  <Typography
+                                    variant="h6"
+                                    classes={{ h6: classes.organizationName }}
+                                  >
                                     {org.login}
                                   </Typography>
                                 </div>
