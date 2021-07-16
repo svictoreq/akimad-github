@@ -1,5 +1,5 @@
 // React imports
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Route,
   useHistory,
@@ -11,12 +11,13 @@ import {
 // Material-ui imports
 import AppBar from "@material-ui/core/AppBar";
 import ArrowBack from "@material-ui/icons/ArrowBack";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography"
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 // Local imports
 import useStyles from "./appStyles";
@@ -34,10 +35,46 @@ function App() {
     strict: true,
     sensitive: true,
   });
-  const classes = useStyles();
+
+  const prefersDarkMode =  useMediaQuery("(prefers-color-scheme: dark)");
   
-  const theme = useTheme();
+  const theme = useMemo(
+    () => createTheme({
+      typography: {
+        fontFamily: [
+          '"Space Mono"',
+          '"SF Mono"',
+          '"Ubuntu Mono"',
+          '"Consolas"',
+          'monospaced',
+        ],
+        h1: {
+          textAlign: "left",
+        },
+        h2: {
+          textAlign: "left",
+        },
+        h3: {
+          textAlign: "left",
+        },
+        h4: {
+          textAlign: "left",
+        },
+        h5: {
+          textAlign: "left",
+        },
+        h6: {
+          textAlign: "left",
+        },
+      },
+      palette: {
+        type: prefersDarkMode ? "dark" : "light", 
+      },
+    }),
+    [prefersDarkMode],
+  )
   const isNotSmallScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const classes = useStyles();
 
   function handleGoBack() {
     const { pathname } = location;
@@ -73,40 +110,50 @@ function App() {
   }, [homeRouteMatch]);
 
   return (
-    <Container
-      classes={{ root: classes.containerRoot }}
-      maxWidth={false}
-    >
-      <AppBar color="inherit" elevation={homeRouteMatch.isExact ? 0 : 4}>
-        <Toolbar>
-          {isBackButtonEnabled && (
-            <IconButton color="inherit" onClick={handleGoBack}>
-              <ArrowBack />
-            </IconButton>
-          )}
-          <Typography variant="h5"
-            classes={{
-              h5: isBackButtonEnabled
-                ? classes.marginBack
-                : classes.marginNormal
-          }}>
-            GitHub Search
-          </Typography>
-          <TopSearchBar handleSearch={handleSearch} />
-        </Toolbar>
-      </AppBar>
-      <Switch>
-        <Route exact path="/">
-          <Home handleSearch={handleSearch} />
-        </Route>
-        <Route path="/search">
-          <Search />
-        </Route>
-        <Route path="/user/:username">
-          <User />
-        </Route>
-      </Switch>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container
+        classes={{ root: classes.containerRoot }}
+        maxWidth={false}
+      >
+        <AppBar
+          color="inherit"
+          elevation={!homeRouteMatch.isExact && !isNotSmallScreen ? 4 : 0}
+        >
+          <Toolbar classes={{ regular: classes.toolbarRegular }}>
+            {isBackButtonEnabled && (
+              <IconButton color="inherit" onClick={handleGoBack}>
+                <ArrowBack />
+              </IconButton>
+            )}
+            {(homeRouteMatch.isExact || isNotSmallScreen) && (
+              <Typography variant={isNotSmallScreen ? "h5" : "h6"}
+                classes={{
+                  h6: classes.appBarTitle,
+                  h5: isBackButtonEnabled
+                    ? classes.marginBack
+                    : classes.marginNormal
+                }}
+              >
+                akimad
+              </Typography>
+            )}
+            <TopSearchBar handleSearch={handleSearch} />
+          </Toolbar>
+        </AppBar>
+        <Switch>
+          <Route exact path="/">
+            <Home handleSearch={handleSearch} />
+          </Route>
+          <Route path="/search">
+            <Search />
+          </Route>
+          <Route path="/user/:username">
+            <User />
+          </Route>
+        </Switch>
+      </Container>
+    </ThemeProvider>
   );
 }
 

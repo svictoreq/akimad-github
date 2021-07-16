@@ -29,6 +29,7 @@ function TopSearchBar({ handleSearch }) {
         placeholder="Search user..."
         value={search}
         onChange={handleChange}
+        type="search"
         endAdornment={(
           <InputAdornment
             position="end"
@@ -39,6 +40,7 @@ function TopSearchBar({ handleSearch }) {
             <IconButton
               size="small"
               type="submit"
+              disabled={!search.length}
               classes={{
                 sizeSmall: classes.iconButtonSizeSmall,
               }}
@@ -52,6 +54,7 @@ function TopSearchBar({ handleSearch }) {
             classes.inputBaseRoot,
             "MuiPaper-rounded",
           ].join(" "),
+          input: classes.inputBaseInput,
         }}
       />
     </form>

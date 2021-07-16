@@ -63,7 +63,7 @@ function User() {
               maxWidth={false}
               classes={{ root: classes.circularProgressContainer }}
             >
-              <CircularProgress size={60} />
+              <CircularProgress color="inherit" size={60} />
             </Container>
           ) : (
             <Grid container spacing={4}>

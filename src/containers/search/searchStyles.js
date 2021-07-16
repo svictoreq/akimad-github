@@ -27,4 +27,7 @@ export default makeStyles((theme) => ({
   paginationItemRoot: {
     fontWeight: 700,
   },
+  typographyRoot: {
+    wordWrap: "anywhere",
+  },
 }))

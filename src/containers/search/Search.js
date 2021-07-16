@@ -76,7 +76,7 @@ function Search() {
       {statusSelector === "loading"
         ? (
           <Container classes={{ root: classes.circularProgressContainer }}>
-            <CircularProgress size={60} />
+            <CircularProgress color="inherit" size={60} />
           </Container>
         )
         : (
@@ -87,7 +87,12 @@ function Search() {
                   <CardButton onClick={handleCardClick(item.login)}>
                     <Avatar src={item.avatar_url} classes={{ root: classes.avatarRoot }} />
                     <figcaption>
-                      <Typography variant="h6">
+                      <Typography
+                        variant="h6"
+                        classes={{
+                          root: classes.typographyRoot
+                        }}
+                      >
                         {item.login}
                       </Typography>
                     </figcaption>
