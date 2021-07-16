@@ -1,5 +1,6 @@
 // React imports
 import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Route,
   useHistory,
@@ -25,11 +26,14 @@ import Home from "../home/Home";
 import Search from "../search/Search";
 import User from "../user/User";
 import TopSearchBar from "../../components/topSearchBar/TopSearchBar";
+import { setTheme } from "../../redux/themeSlice";
 
 function App() {
   const [isBackButtonEnabled, setIsBackButtonEnabled] = useState(false);
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const themeSelector = useSelector((state) => state.theme.selected);
   const homeRouteMatch  = useRouteMatch({
     path: "/",
     strict: true,
@@ -68,10 +72,10 @@ function App() {
         },
       },
       palette: {
-        type: prefersDarkMode ? "dark" : "light", 
+        type: themeSelector, 
       },
     }),
-    [prefersDarkMode],
+    [themeSelector],
   )
   const isNotSmallScreen = useMediaQuery(theme.breakpoints.up("md"));
   const classes = useStyles();
@@ -108,6 +112,10 @@ function App() {
   useEffect(() => {
     setIsBackButtonEnabled(!homeRouteMatch?.isExact);
   }, [homeRouteMatch]);
+
+  useEffect(() => {
+    dispatch(setTheme(prefersDarkMode ? "dark" : "light"));
+  }, [prefersDarkMode]) // eslint-disable-line
 
   return (
     <ThemeProvider theme={theme}>

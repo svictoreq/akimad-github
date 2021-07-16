@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   containerRoot: {
+    position: "relative",
     flex: 1,
     display: "flex",
     flexDirection: "column",
@@ -11,7 +12,7 @@ export default makeStyles((theme) => ({
     height: "100%",
   },
   form: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   iconButtonRoot: {
     padding: 8,
@@ -23,5 +24,10 @@ export default makeStyles((theme) => ({
     fontSize: theme.typography.h6.fontSize,
     padding: theme.spacing(2),
     paddingLeft: theme.spacing(4),
+  },
+  themeButton: {
+    position: "absolute",
+    top: theme.spacing(10),
+    right: 0,
   },
 }));
