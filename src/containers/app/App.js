@@ -25,6 +25,7 @@ import useStyles from "./appStyles";
 import Home from "../home/Home";
 import Search from "../search/Search";
 import User from "../user/User";
+import NotFound from "../../components/notFound/NotFound";
 import TopSearchBar from "../../components/topSearchBar/TopSearchBar";
 import { setTheme } from "../../redux/themeSlice";
 
@@ -68,6 +69,7 @@ function App() {
           textAlign: "left",
         },
         h6: {
+          fontSize: "1.15rem",
           textAlign: "left",
         },
       },
@@ -158,6 +160,9 @@ function App() {
           </Route>
           <Route path="/user/:username">
             <User />
+          </Route>
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       </Container>

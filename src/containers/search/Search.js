@@ -75,47 +75,58 @@ function Search() {
     <Container classes={{ root: classes.containerRoot}}>
       {statusSelector === "loading"
         ? (
-          <Container classes={{ root: classes.circularProgressContainer }}>
+          <Container
+            disableGutters
+            classes={{ root: classes.circularProgressContainer }}>
             <CircularProgress color="inherit" size={60} />
           </Container>
         )
-        : (
-          <>
-            <Grid container spacing={3}>
-              {resultsSelector.items.map((item) => (
-                <Grid key={item.node_id} item xs={12} md={6} lg={3}>
-                  <CardButton onClick={handleCardClick(item.login)}>
-                    <Avatar src={item.avatar_url} classes={{ root: classes.avatarRoot }} />
-                    <figcaption>
-                      <Typography
-                        variant="h6"
-                        classes={{
-                          root: classes.typographyRoot
-                        }}
-                      >
-                        {item.login}
-                      </Typography>
-                    </figcaption>
-                  </CardButton>
-                </Grid>
-              ))}
-            </Grid>
-            <Pagination
-              count={pageCount}
-              page={currentPage}
-              onChange={handlePageChange}
-              shape="rounded"
-              size={isNotSmallScreen ? "large" : "small"}
-              classes={{ root: classes.paginationRoot }}
-              renderItem={(item) => (
-                <PaginationItem
-                  classes={{ root: classes.paginationItemRoot }}
-                  {...item}
-                />
-              )}
-            />
-          </>
-        )
+        : (statusSelector === "success" && !(resultsSelector.total_count > 0))
+          ? (
+            <Container
+              disableGutters
+              classes={{ root: classes.circularProgressContainer }}>
+              <Typography variant="overline">
+                no_users_found :(
+              </Typography>
+            </Container>
+          ) : (
+            <>
+              <Grid container spacing={3}>
+                {resultsSelector.items.map((item) => (
+                  <Grid key={item.node_id} item xs={12} md={6} lg={3}>
+                    <CardButton onClick={handleCardClick(item.login)}>
+                      <Avatar src={item.avatar_url} classes={{ root: classes.avatarRoot }} />
+                      <figcaption>
+                        <Typography
+                          variant="h6"
+                          classes={{
+                            root: classes.typographyRoot
+                          }}
+                        >
+                          {item.login}
+                        </Typography>
+                      </figcaption>
+                    </CardButton>
+                  </Grid>
+                ))}
+              </Grid>
+              <Pagination
+                count={pageCount}
+                page={currentPage}
+                onChange={handlePageChange}
+                shape="rounded"
+                size={isNotSmallScreen ? "large" : "small"}
+                classes={{ root: classes.paginationRoot }}
+                renderItem={(item) => (
+                  <PaginationItem
+                    classes={{ root: classes.paginationItemRoot }}
+                    {...item}
+                  />
+                )}
+              />
+            </>
+          )
       }
     </Container>
   );

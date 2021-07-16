@@ -168,7 +168,7 @@ function User() {
                         </>
                       ) : (
                         <Typography variant="overline">
-                          No repositories
+                          no_repositories
                         </Typography>
                       )
                     }
@@ -212,7 +212,7 @@ function User() {
                         </>
                       ) : (
                         <Typography variant="overline">
-                          No organizations
+                          no_organizations
                         </Typography>
                       )
                     }
