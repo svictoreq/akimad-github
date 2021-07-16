@@ -45,6 +45,11 @@ export default makeStyles((theme) => ({
   categoryTitle: {
     marginBottom: theme.spacing(1.25),
   },
+  link: {
+    color: "inherit",
+    fontWeight: 700,
+    textDecoration: "none",
+  },
   organizationAvatarRoot: {
     marginRight: theme.spacing(1.25),
   },

@@ -82,7 +82,14 @@ function User() {
                     </div>
                     <div className={classes.infoField}>
                       <Typography variant="h6">
-                        {userSelector.login}
+                        <a
+                          className={classes.link}
+                          href={userSelector.html_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {userSelector.login}
+                        </a>
                       </Typography>
                     </div>
                     <div className={classes.infoField}>
